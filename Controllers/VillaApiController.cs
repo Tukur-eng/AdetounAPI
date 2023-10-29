@@ -1,4 +1,5 @@
 ﻿using Adetoun_VillaApi.Data;
+using Adetoun_VillaApi.logging;
 using Adetoun_VillaApi.Model;
 using Adetoun_VillaApi.Model.Dto;
 using Microsoft.AspNetCore.JsonPatch;
@@ -10,9 +11,15 @@ namespace Adetoun_VillaApi.Controllers
     [ApiController]
     public class VillaApiController : ControllerBase
     {
-        private readonly ILogger<VillaApiController> _logger;
+        //private readonly ILogger<VillaApiController> _logger;
 
-        public VillaApiController(ILogger<VillaApiController> logger)
+        //public VillaApiController(ILogger<VillaApiController> logger)
+        //{
+        //    _logger = logger;
+        //}
+        private readonly ILogging _logger;
+
+        public VillaApiController( ILogging logger)
         {
             _logger = logger;
         }
@@ -21,7 +28,7 @@ namespace Adetoun_VillaApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<VillaDto>> GetVillas()
         {
-            _logger.LogInformation("Getting All Villas");
+            _logger.Log("Getting All Villas", "");
             return Ok(VillaStore.VillaList);
           
         }
@@ -35,7 +42,7 @@ namespace Adetoun_VillaApi.Controllers
         //[ProducesResponseType(404)]
         public ActionResult<VillaDto> GetVilla(int id )
         {
-            _logger.LogError("Get Villa Error with Id" + id);
+            _logger.Log("Get Villa Error with Id" + "" + id, "error");
             
             if (id == 0)
             {
